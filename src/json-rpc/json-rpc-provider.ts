@@ -1,20 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { JsonRpcCallInput } from './types/json-rpc-call.input';
 import { JsonRpcCallOutput } from './types/json-rpc-call-output';
-import { ConfigService } from '@nestjs/config';
 import axios, { AxiosResponse } from 'axios';
-import { JsonRpcError } from './types/json-rpc-error';
+import { JsonRpcError } from './json-rpc-error';
 
 @Injectable()
 export class JsonRpcProvider {
-  constructor(private readonly configService: ConfigService) {}
-
-  async call<TResult>(body: JsonRpcCallInput): Promise<TResult> {
-    const publicRpcNode = this.configService.get<string>('publicRpcNode');
-
+  async call<TResult>(url: string, body: JsonRpcCallInput): Promise<TResult> {
     return await axios
       .post<JsonRpcCallInput, AxiosResponse<JsonRpcCallOutput<TResult>>>(
-        publicRpcNode,
+        url,
         {
           jsonrpc: '2.0',
           ...body,

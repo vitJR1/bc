@@ -1,4 +1,5 @@
 export interface IConfig {
   port: number;
-  publicRpcNode: string;
+  publicEvmRpcNode: string;
+  publicCosmosRpcNode: string;
 }

@@ -7,7 +7,7 @@ import { EvmJsonrpcProvider } from './evm.jsonrpc.provider';
 export class EvmService {
   constructor(private readonly evmJsonrpcProvider: EvmJsonrpcProvider) {}
 
-  async findOneEvmBlock(num: string): Promise<EvmBlockResponseDto> {
+  async getBlockByNumber(num: string): Promise<EvmBlockResponseDto> {
     const block = await this.evmJsonrpcProvider.getBlockByNumber(num);
     return {
       gasUsed: block.gasUsed,

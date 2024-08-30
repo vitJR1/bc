@@ -6,6 +6,7 @@ import { EvmModule } from './evm/evm.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { JsonRpcModule } from './json-rpc/json-rpc.module';
+import { AxiosModule } from './axios/axios.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JsonRpcModule } from './json-rpc/json-rpc.module';
     CosmosModule,
     EvmModule,
     JsonRpcModule,
+    AxiosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

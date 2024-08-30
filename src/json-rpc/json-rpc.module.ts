@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { JsonRpcProvider } from './json-rpc-provider.service';
-import { ConfigModule } from '@nestjs/config';
+import { JsonRpcProvider } from './json-rpc-provider';
 
 @Module({
-  imports: [ConfigModule],
   providers: [JsonRpcProvider],
   exports: [JsonRpcProvider],
 })
