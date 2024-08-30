@@ -1,26 +1,45 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEvmDto } from './dto/create-evm.dto';
-import { UpdateEvmDto } from './dto/update-evm.dto';
+import { EvmBlockResponseDto } from './dto/evm-block.response.dto';
+import { EvmTransactionsResponseDto } from './dto/evm-transactions.response.dto';
+import { EvmJsonrpcProvider } from './evm.jsonrpc.provider';
 
 @Injectable()
 export class EvmService {
-  create(createEvmDto: CreateEvmDto) {
-    return 'This action adds a new evm';
+  constructor(private readonly evmJsonrpcProvider: EvmJsonrpcProvider) {}
+
+  findOneEvmBlock(height: string): EvmBlockResponseDto {
+    return {
+      gasUsed: `${height}-gas`,
+      hash: `${height}-hash`,
+      height: `${height}`,
+      gasLimit: `${height}-gasL`,
+      size: `${height}-size`,
+      parentHash: `${height}-ph`,
+    };
   }
 
-  findAll() {
-    return `This action returns all evm`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} evm`;
-  }
-
-  update(id: number, updateEvmDto: UpdateEvmDto) {
-    return `This action updates a #${id} evm`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} evm`;
+  /**
+   * Find transactions by cache
+   * @url https://haqq-evm.publicnode.com/
+   * @url https://ethereum.github.io/execution-apis/api-documentation
+   *
+   *
+   * */
+  async getTransactionByHash(
+    hash: string,
+  ): Promise<EvmTransactionsResponseDto> {
+    const transaction =
+      await this.evmJsonrpcProvider.getTransactionByHash(hash);
+    console.log(transaction);
+    return {
+      hash: transaction.hash,
+      value: transaction.value,
+      from: transaction.from,
+      input: transaction.input,
+      maxFeePerGas: transaction.maxFeePerGas,
+      gasPrice: transaction.gasPrice,
+      maxPriorityFeePerGas: transaction.maxPriorityFeePerGas,
+      to: transaction.to,
+    };
   }
 }

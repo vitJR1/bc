@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCosmoDto } from './dto/create-cosmo.dto';
-import { UpdateCosmoDto } from './dto/update-cosmo.dto';
+import { CosmosBlockResponseDto } from './dto/cosmos-block.response.dto';
+import { CosmosTransactionsResponseDto } from './dto/cosmos-transactions.response.dto';
 
 @Injectable()
 export class CosmosService {
-  create(createCosmoDto: CreateCosmoDto) {
-    return 'This action adds a new cosmo';
+  findOneCosmosBlock(height: string): CosmosBlockResponseDto {
+    return {
+      height: `${height}`,
+      time: `${height}-t`,
+      hash: `${height}-h`,
+      proposedAddress: `${height}-pa`,
+    };
   }
 
-  findAll() {
-    return `This action returns all cosmos`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} cosmo`;
-  }
-
-  update(id: number, updateCosmoDto: UpdateCosmoDto) {
-    return `This action updates a #${id} cosmo`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cosmo`;
+  findOneCosmosTransaction(hash: string): CosmosTransactionsResponseDto {
+    return {
+      hash: `${hash}`,
+      height: `${hash}-h`,
+      time: `${hash}-t`,
+      gasUsed: `${hash}-gu`,
+      gasWanted: `${hash}-gw`,
+      fee: `${hash}-f`,
+      sender: `${hash}-s`,
+    };
   }
 }
