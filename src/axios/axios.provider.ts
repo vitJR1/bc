@@ -12,12 +12,14 @@ export class AxiosProvider {
       .then((result) => result.data)
       .catch((err) => {
         if (err?.response?.data?.message) {
-          return new AxiosResponseError(err?.response?.data?.message);
+          return new AxiosResponseError(
+            err?.response?.data?.message,
+            err.status,
+          );
         }
         throw Error(err.message);
       })
       .then((result) => {
-        console.log(result);
         if (result instanceof AxiosResponseError) {
           throw result;
         }

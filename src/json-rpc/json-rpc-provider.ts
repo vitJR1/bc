@@ -23,6 +23,7 @@ export class JsonRpcProvider {
       .then((result) => result.data)
       .then((result) => {
         if (result.error != null) {
+          console.log(result.error);
           throw new JsonRpcError(result.error.message, result.error.code);
         }
         return result.result;

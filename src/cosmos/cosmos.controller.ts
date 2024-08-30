@@ -12,10 +12,7 @@ export class CosmosController {
 
   @Get('block/:height')
   async getBlockByHeight(
-    @Param(
-      'height',
-      new PathParameterRegexValidationPipe(new RegExp('^[0-9]+$')),
-    )
+    @Param('height')
     height: string,
   ): Promise<CosmosBlockResponseDto> {
     return await this.cosmosService.getBlockByHeight(height);
@@ -23,10 +20,7 @@ export class CosmosController {
 
   @Get('transactions/:hash')
   async getTransactionByHash(
-    @Param(
-      'hash',
-      // new PathParameterValidationPipe(new RegExp('^0x[0-9a-f]{64}$')),
-    )
+    @Param('hash')
     hash: string,
   ): Promise<CosmosTransactionsResponseDto> {
     return await this.cosmosService.getTransactionByHash(hash);

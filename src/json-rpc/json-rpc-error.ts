@@ -1,4 +1,6 @@
-export class JsonRpcError extends Error {
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class JsonRpcError extends HttpException {
   /**
      -32700	Parse error	Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text.
 
@@ -18,7 +20,7 @@ export class JsonRpcError extends Error {
     public message: string,
     code: number,
   ) {
-    super(message);
+    super(message, HttpStatus.INTERNAL_SERVER_ERROR);
     this.code = code;
   }
 }

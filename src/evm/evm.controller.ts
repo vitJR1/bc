@@ -19,7 +19,7 @@ export class EvmController {
       ),
     )
     num: string,
-  ): Promise<EvmBlockResponseDto> {
+  ): Promise<EvmBlockResponseDto | null> {
     return await this.evmService.getBlockByNumber(num);
   }
 
@@ -30,7 +30,7 @@ export class EvmController {
       new PathParameterRegexValidationPipe(new RegExp('^0x[0-9a-f]{64}$')),
     )
     hash: string,
-  ): Promise<EvmTransactionsResponseDto> {
+  ): Promise<EvmTransactionsResponseDto | null> {
     return await this.evmService.getTransactionByHash(hash);
   }
 }

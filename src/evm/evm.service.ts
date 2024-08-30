@@ -7,16 +7,18 @@ import { EvmJsonrpcProvider } from './evm.jsonrpc.provider';
 export class EvmService {
   constructor(private readonly evmJsonrpcProvider: EvmJsonrpcProvider) {}
 
-  async getBlockByNumber(num: string): Promise<EvmBlockResponseDto> {
+  async getBlockByNumber(num: string): Promise<EvmBlockResponseDto | null> {
     const block = await this.evmJsonrpcProvider.getBlockByNumber(num);
-    return {
-      gasUsed: block.gasUsed,
-      hash: block.hash,
-      height: block.number,
-      gasLimit: block.gasLimit,
-      size: block.size,
-      parentHash: block.parentHash,
-    };
+    return block
+      ? {
+          gasUsed: block.gasUsed,
+          hash: block.hash,
+          height: block.number,
+          gasLimit: block.gasLimit,
+          size: block.size,
+          parentHash: block.parentHash,
+        }
+      : null;
   }
 
   /**
@@ -26,18 +28,20 @@ export class EvmService {
    * */
   async getTransactionByHash(
     hash: string,
-  ): Promise<EvmTransactionsResponseDto> {
+  ): Promise<EvmTransactionsResponseDto | null> {
     const transaction =
       await this.evmJsonrpcProvider.getTransactionByHash(hash);
-    return {
-      hash: transaction.hash,
-      value: transaction.value,
-      from: transaction.from,
-      input: transaction.input,
-      maxFeePerGas: transaction.maxFeePerGas,
-      gasPrice: transaction.gasPrice,
-      maxPriorityFeePerGas: transaction.maxPriorityFeePerGas,
-      to: transaction.to,
-    };
+    return transaction
+      ? {
+          hash: transaction.hash,
+          value: transaction.value,
+          from: transaction.from,
+          input: transaction.input,
+          maxFeePerGas: transaction.maxFeePerGas,
+          gasPrice: transaction.gasPrice,
+          maxPriorityFeePerGas: transaction.maxPriorityFeePerGas,
+          to: transaction.to,
+        }
+      : null;
   }
 }
