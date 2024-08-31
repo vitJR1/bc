@@ -28,3 +28,14 @@ chmod +x run.sh
 Не понимаю смысл делать 2 разных compose файла и в целом делать Dockerfile для postgres.
 Но так было написано в ТЗ, так бы написал 1 docker-compose для всего проекта.
 
+```env
+PORT=3000
+
+PUBLIC_EVM_NODE_URL=https://ethereum-rpc.publicnode.com
+PUBLIC_COSMOS_NODE_URL=https://haqq-mainnet-api.itrocket.net
+```
+
+// https://haqq-rpc.publicnode.com:443
+RPC методы из документации возвращают ошибку "Method not found", 
+потому для тестов использовал https://ethereum-rpc.publicnode.com
+![img.png](img.png)
