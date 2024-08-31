@@ -31,11 +31,6 @@ chmod +x run.sh
 ```env
 PORT=3000
 
-PUBLIC_EVM_NODE_URL=https://ethereum-rpc.publicnode.com
+PUBLIC_EVM_NODE_URL=https://haqq-evm-rpc.publicnode.com
 PUBLIC_COSMOS_NODE_URL=https://haqq-mainnet-api.itrocket.net
 ```
-
-// https://haqq-rpc.publicnode.com:443
-RPC методы из документации возвращают ошибку "Method not found", 
-потому для тестов использовал https://ethereum-rpc.publicnode.com
-![img.png](img.png)
