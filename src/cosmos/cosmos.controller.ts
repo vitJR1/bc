@@ -12,7 +12,10 @@ export class CosmosController {
 
   @Get('block/:height')
   async getBlockByHeight(
-    @Param('height')
+    @Param(
+      'height',
+      new PathParameterRegexValidationPipe(new RegExp('^[0-9]+$')),
+    )
     height: string,
   ): Promise<CosmosBlockResponseDto> {
     return await this.cosmosService.getBlockByHeight(height);
